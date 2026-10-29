@@ -41,8 +41,8 @@ macOS “System Data” can quietly eat tens of gigabytes — Xcode DerivedData,
 
 ### Option A — Download the DMG (recommended)
 
-1. Grab the latest disk image from **[Releases](https://github.com/emondd4/freeple-cleaner/releases)**  
-   or download directly: [`dist/FreepleCleaner-1.0.0.dmg`](dist/FreepleCleaner-1.0.0.dmg)
+1. Download **[FreepleCleaner-1.0.0.dmg](https://github.com/emondd4/freeple-cleaner/releases/download/v1.0.0/FreepleCleaner-1.0.0.dmg)**  
+   (or browse all builds on **[Releases](https://github.com/emondd4/freeple-cleaner/releases)**)
 2. Open the DMG  
 3. Drag **Freeple Cleaner** into **Applications**  
 4. Launch it from Applications  
