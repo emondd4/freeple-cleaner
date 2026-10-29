@@ -1,0 +1,333 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		57A4EDF7669D437B97C0F188 /* MacCleanerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B5F8B490B426C8B53DF73 /* MacCleanerApp.swift */; };
+		50A73835FE7A4481BC86D790 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D261E30F8364F27B36154A4 /* ContentView.swift */; };
+		AD98534B4C86498B921F6DD0 /* CleanCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF9CD8FA314F499D62351E /* CleanCategory.swift */; };
+		B49F21480E4843AA92778F88 /* DiskVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81039FCAABD34026AED6BAB3 /* DiskVolume.swift */; };
+		340589D768FB44AC9F43AA13 /* RemapRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6794937F1445434F8489F44A /* RemapRecord.swift */; };
+		74E182839353430E849DC18E /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBFF826ADB47E1B1F6CE19 /* ScanResult.swift */; };
+		E39C79D29FA44DA1AE7B85CB /* DiskScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E437ED5F44FCC8E990564 /* DiskScanner.swift */; };
+		EA71B36D185E41FA8CCA3F75 /* CleanerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5069152E84EF7A8EBD3DA /* CleanerService.swift */; };
+		BCEE0836C91C44E5AD51618E /* RemapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634DF9E3C17A460F908F402B /* RemapService.swift */; };
+		E720BE60DC2C4327B4FBC684 /* VolumeMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB354617EFCE4F75B97AA158 /* VolumeMonitor.swift */; };
+		6FFB4975B2094C559EF6CF51 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0EC52B6ABD4EC0ACC89C65 /* SidebarView.swift */; };
+		B83E0F65DEA144AE89BCCCF2 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903D9E179E444DEEAE399E51 /* CategoryListView.swift */; };
+		A4E3E7269ABE4216986034BD /* RemapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C449BCB0F7E48D69A6CF5CB /* RemapView.swift */; };
+		3FD3B412411349449295BF26 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E80C5FEBD240BD925CABBD /* DashboardView.swift */; };
+		BCE5596935AA43098F8F6BA2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33042D13834084A2465091 /* SettingsView.swift */; };
+		FD697BA85575426EB6A3B3C2 /* ByteCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826D6F7875A4FD6A559B830 /* ByteCount.swift */; };
+		9ABC5C09336E45B489DAC0F1 /* PathSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9093937E377426784E99364 /* PathSafety.swift */; };
+		A1B2C3D4E5F6478901234567 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F678901234567890 /* Theme.swift */; };
+		87BC7344BEE245B3B1763B6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADCFF51ED3DC44C7A6AA415A /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00264A93F8BF483DAFF9C0CB /* MacCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		871B5F8B490B426C8B53DF73 /* MacCleanerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCleanerApp.swift; sourceTree = "<group>"; };
+		5D261E30F8364F27B36154A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D7BF9CD8FA314F499D62351E /* CleanCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanCategory.swift; sourceTree = "<group>"; };
+		81039FCAABD34026AED6BAB3 /* DiskVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskVolume.swift; sourceTree = "<group>"; };
+		6794937F1445434F8489F44A /* RemapRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapRecord.swift; sourceTree = "<group>"; };
+		10DBFF826ADB47E1B1F6CE19 /* ScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResult.swift; sourceTree = "<group>"; };
+		5E9E437ED5F44FCC8E990564 /* DiskScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskScanner.swift; sourceTree = "<group>"; };
+		1BF5069152E84EF7A8EBD3DA /* CleanerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanerService.swift; sourceTree = "<group>"; };
+		634DF9E3C17A460F908F402B /* RemapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapService.swift; sourceTree = "<group>"; };
+		FB354617EFCE4F75B97AA158 /* VolumeMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeMonitor.swift; sourceTree = "<group>"; };
+		AE0EC52B6ABD4EC0ACC89C65 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		903D9E179E444DEEAE399E51 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		3C449BCB0F7E48D69A6CF5CB /* RemapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapView.swift; sourceTree = "<group>"; };
+		F8E80C5FEBD240BD925CABBD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		0F33042D13834084A2465091 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1826D6F7875A4FD6A559B830 /* ByteCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteCount.swift; sourceTree = "<group>"; };
+		E9093937E377426784E99364 /* PathSafety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathSafety.swift; sourceTree = "<group>"; };
+		B2C3D4E5F678901234567890 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		ADCFF51ED3DC44C7A6AA415A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4E6D4AC8A43F44DCBA4E84ED /* MacCleaner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacCleaner.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4FC7CF8D818A40B5AD0A2E36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B3095606576C46009CE9D95F = {
+			isa = PBXGroup;
+			children = (
+				FF8872BB53734F898D97ED81 /* MacCleaner */,
+				CD32A7B6F6364A249EBF5031 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD32A7B6F6364A249EBF5031 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00264A93F8BF483DAFF9C0CB /* MacCleaner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FF8872BB53734F898D97ED81 /* MacCleaner */ = {
+			isa = PBXGroup;
+			children = (
+				871B5F8B490B426C8B53DF73 /* MacCleanerApp.swift */,
+				5D261E30F8364F27B36154A4 /* ContentView.swift */,
+				B17FC9FED9BA41A0A7939B5A /* Models */,
+				AACC004897E941238AA7F0DC /* Services */,
+				21F8F03064C9445DAED06674 /* Views */,
+				23799DC9DFD842E196EA8149 /* Utilities */,
+				ADCFF51ED3DC44C7A6AA415A /* Assets.xcassets */,
+				4E6D4AC8A43F44DCBA4E84ED /* MacCleaner.entitlements */,
+			);
+			path = MacCleaner;
+			sourceTree = "<group>";
+		};
+		B17FC9FED9BA41A0A7939B5A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D7BF9CD8FA314F499D62351E /* CleanCategory.swift */,
+				81039FCAABD34026AED6BAB3 /* DiskVolume.swift */,
+				6794937F1445434F8489F44A /* RemapRecord.swift */,
+				10DBFF826ADB47E1B1F6CE19 /* ScanResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AACC004897E941238AA7F0DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5E9E437ED5F44FCC8E990564 /* DiskScanner.swift */,
+				1BF5069152E84EF7A8EBD3DA /* CleanerService.swift */,
+				634DF9E3C17A460F908F402B /* RemapService.swift */,
+				FB354617EFCE4F75B97AA158 /* VolumeMonitor.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		21F8F03064C9445DAED06674 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AE0EC52B6ABD4EC0ACC89C65 /* SidebarView.swift */,
+				903D9E179E444DEEAE399E51 /* CategoryListView.swift */,
+				3C449BCB0F7E48D69A6CF5CB /* RemapView.swift */,
+				F8E80C5FEBD240BD925CABBD /* DashboardView.swift */,
+				0F33042D13834084A2465091 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		23799DC9DFD842E196EA8149 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1826D6F7875A4FD6A559B830 /* ByteCount.swift */,
+				E9093937E377426784E99364 /* PathSafety.swift */,
+				B2C3D4E5F678901234567890 /* Theme.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E6BAB5C99BB54605A1778578 /* MacCleaner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TARGET_CFGS /* Build configuration list for PBXNativeTarget "MacCleaner" */;
+			buildPhases = (
+				925E9C7BBE264BCB837DBE79 /* Sources */,
+				4FC7CF8D818A40B5AD0A2E36 /* Frameworks */,
+				D957788CA58746929FF6F129 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacCleaner;
+			productName = MacCleaner;
+			productReference = 00264A93F8BF483DAFF9C0CB /* MacCleaner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		62938A6F6FA248C380BB54F7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = PROJECT_CFGS /* Build configuration list for PBXProject "MacCleaner" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B3095606576C46009CE9D95F;
+			productRefGroup = CD32A7B6F6364A249EBF5031 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E6BAB5C99BB54605A1778578 /* MacCleaner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D957788CA58746929FF6F129 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BC7344BEE245B3B1763B6D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		925E9C7BBE264BCB837DBE79 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57A4EDF7669D437B97C0F188 /* MacCleanerApp.swift in Sources */,
+				50A73835FE7A4481BC86D790 /* ContentView.swift in Sources */,
+				AD98534B4C86498B921F6DD0 /* CleanCategory.swift in Sources */,
+				B49F21480E4843AA92778F88 /* DiskVolume.swift in Sources */,
+				340589D768FB44AC9F43AA13 /* RemapRecord.swift in Sources */,
+				74E182839353430E849DC18E /* ScanResult.swift in Sources */,
+				E39C79D29FA44DA1AE7B85CB /* DiskScanner.swift in Sources */,
+				EA71B36D185E41FA8CCA3F75 /* CleanerService.swift in Sources */,
+				BCEE0836C91C44E5AD51618E /* RemapService.swift in Sources */,
+				E720BE60DC2C4327B4FBC684 /* VolumeMonitor.swift in Sources */,
+				6FFB4975B2094C559EF6CF51 /* SidebarView.swift in Sources */,
+				B83E0F65DEA144AE89BCCCF2 /* CategoryListView.swift in Sources */,
+				A4E3E7269ABE4216986034BD /* RemapView.swift in Sources */,
+				3FD3B412411349449295BF26 /* DashboardView.swift in Sources */,
+				BCE5596935AA43098F8F6BA2 /* SettingsView.swift in Sources */,
+				FD697BA85575426EB6A3B3C2 /* ByteCount.swift in Sources */,
+				9ABC5C09336E45B489DAC0F1 /* PathSafety.swift in Sources */,
+				A1B2C3D4E5F6478901234567 /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0E89E2928F634489B2BEE0A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2135FDB317724F539361DE0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		928FC0FEE6D44454B284F58D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacCleaner/MacCleaner.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Freeple Cleaner";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aqualink.MacCleaner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DB5F31878D6246C3B643992F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacCleaner/MacCleaner.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Freeple Cleaner";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aqualink.MacCleaner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		PROJECT_CFGS /* Build configuration list for PBXProject "MacCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E89E2928F634489B2BEE0A0 /* Debug */,
+				2135FDB317724F539361DE0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TARGET_CFGS /* Build configuration list for PBXNativeTarget "MacCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				928FC0FEE6D44454B284F58D /* Debug */,
+				DB5F31878D6246C3B643992F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 62938A6F6FA248C380BB54F7 /* Project object */;
+}
