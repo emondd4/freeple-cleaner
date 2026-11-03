@@ -2,14 +2,14 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject private var app: AppState
-    @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
+        HStack(spacing: 0) {
             SidebarView()
-                .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 260)
-        } detail: {
-            ZStack {
+                .frame(width: 220)
+                .frame(maxHeight: .infinity)
+
+            ZStack(alignment: .topLeading) {
                 LinearGradient(
                     colors: [Theme.canvasTop, Theme.canvasBottom],
                     startPoint: .topLeading,
@@ -17,25 +17,13 @@ struct ContentView: View {
                 )
                 .ignoresSafeArea()
 
-                Group {
-                    switch app.section {
-                    case .dashboard:
-                        DashboardView()
-                    case .clean:
-                        CategoryListView()
-                    case .remap:
-                        RemapView()
-                    case .apps:
-                        AppsView()
-                    case .settings:
-                        SettingsView()
-                    }
-                }
-                .padding(24)
-                .foregroundStyle(Theme.ink)
+                detail
+                    .padding(24)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .foregroundStyle(Theme.ink)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .navigationSplitViewStyle(.balanced)
         .preferredColorScheme(.light)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
@@ -61,6 +49,22 @@ struct ContentView: View {
             }
         } message: {
             Text("This permanently deletes about \(ByteCount.string(app.selectedBytes)) of data. Remapped folders are skipped.")
+        }
+    }
+
+    @ViewBuilder
+    private var detail: some View {
+        switch app.section {
+        case .dashboard:
+            DashboardView()
+        case .clean:
+            CategoryListView()
+        case .remap:
+            RemapView()
+        case .apps:
+            AppsView()
+        case .settings:
+            SettingsView()
         }
     }
 }

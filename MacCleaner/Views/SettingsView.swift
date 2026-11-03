@@ -8,7 +8,7 @@ struct SettingsView: View {
         Form {
             Section("About") {
                 LabeledContent("App", value: "Freeple Cleaner")
-                LabeledContent("Version", value: "1.0.0")
+                LabeledContent("Version", value: "1.1.1")
                 Text("Cleans reclaimable user-level system data and can relocate bulky developer folders onto a portable SSD using symlinks.")
                     .font(.callout)
                     .foregroundStyle(Theme.muted)

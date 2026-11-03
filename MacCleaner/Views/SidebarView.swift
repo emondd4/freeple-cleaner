@@ -18,19 +18,18 @@ struct SidebarView: View {
                         .foregroundStyle(Theme.muted)
                 }
             }
-            .padding(.horizontal, 18)
+            .padding(.horizontal, 16)
             .padding(.top, 18)
-            .padding(.bottom, 14)
+            .padding(.bottom, 16)
 
-            List(selection: $app.section) {
+            VStack(spacing: 4) {
                 ForEach(AppSection.allCases) { section in
-                    Label(section.title, systemImage: section.systemImage)
-                        .tag(section)
-                        .foregroundStyle(Theme.ink)
+                    sidebarButton(section)
                 }
             }
-            .listStyle(.sidebar)
-            .scrollContentBackground(.hidden)
+            .padding(.horizontal, 10)
+
+            Spacer(minLength: 0)
 
             if let status = app.statusMessage {
                 Text(status)
@@ -41,6 +40,30 @@ struct SidebarView: View {
             }
         }
         .background(Theme.sidebar)
-        .preferredColorScheme(.light)
+        .overlay(alignment: .trailing) {
+            Rectangle()
+                .fill(Theme.cardStroke.opacity(0.7))
+                .frame(width: 1)
+        }
+    }
+
+    private func sidebarButton(_ section: AppSection) -> some View {
+        let selected = app.section == section
+        return Button {
+            app.section = section
+        } label: {
+            Label(section.title, systemImage: section.systemImage)
+                .font(.system(size: 13, weight: selected ? .semibold : .regular))
+                .foregroundStyle(selected ? Color.white : Theme.ink)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 9)
+                .background(
+                    RoundedRectangle(cornerRadius: 9, style: .continuous)
+                        .fill(selected ? Theme.sidebarSelected : Color.clear)
+                )
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 }

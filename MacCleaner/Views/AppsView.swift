@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct AppsView: View {
     @EnvironmentObject private var app: AppState
@@ -18,11 +19,32 @@ struct AppsView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(alignment: .leading, spacing: 16) {
             header
             volumeStrip
             filterBar
-            list
+
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    if filtered.isEmpty {
+                        Text(app.isScanning ? "Scanning applications…" : "No apps match this filter.")
+                            .foregroundStyle(Theme.muted)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 24)
+                    }
+
+                    ForEach(filtered) { item in
+                        appRow(item)
+                    }
+
+                    if !app.appRemaps.isEmpty && filter != .apple {
+                        remappedSection
+                    }
+                }
+                .padding(.bottom, 8)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
             if let error = app.lastError, app.section == .apps {
                 Text(error)
                     .font(.caption)
@@ -32,10 +54,11 @@ struct AppsView: View {
                     .background(Theme.danger.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private var header: some View {
-        HStack(alignment: .bottom) {
+        HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 10) {
                     Text("Move Apps")
@@ -52,7 +75,7 @@ struct AppsView: View {
                     .foregroundStyle(Theme.muted)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            Spacer()
+            Spacer(minLength: 12)
             VStack(alignment: .trailing, spacing: 4) {
                 Text("\(app.selectedMovableApps.count)")
                     .font(.system(size: 24, weight: .bold, design: .rounded))
@@ -73,14 +96,14 @@ struct AppsView: View {
                 Text(app.selectedVolume?.name ?? "No portable SSD selected")
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
-                Text(app.selectedVolume?.capacityLabel ?? "Plug in a drive, then open Remap to SSD or pick one below.")
+                Text(app.selectedVolume?.capacityLabel ?? "Plug in a drive, then pick it here.")
                     .font(.caption)
                     .foregroundStyle(Theme.muted)
             }
             Spacer()
             if !app.volumes.portableVolumes.isEmpty {
                 Picker("SSD", selection: Binding(
-                    get: { app.selectedVolumeID ?? "" },
+                    get: { app.selectedVolumeID ?? app.volumes.portableVolumes.first?.id ?? "" },
                     set: { app.selectedVolumeID = $0.isEmpty ? nil : $0 }
                 )) {
                     ForEach(app.volumes.portableVolumes) { vol in
@@ -129,50 +152,34 @@ struct AppsView: View {
         }
     }
 
-    private var list: some View {
-        ScrollView {
-            LazyVStack(spacing: 8) {
-                if filtered.isEmpty {
-                    Text(app.isScanning ? "Scanning applications…" : "No apps match this filter.")
-                        .foregroundStyle(Theme.muted)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 24)
-                }
-                ForEach(filtered) { item in
-                    appRow(item)
-                }
-
-                if !app.appRemaps.isEmpty && filter != .apple {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("On portable SSD")
-                            .font(.headline)
-                            .foregroundStyle(Theme.ink)
-                            .padding(.top, 12)
-                        ForEach(app.appRemaps) { record in
-                            HStack {
-                                Image(systemName: "link.circle.fill")
-                                    .foregroundStyle(Theme.accent)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(record.appName).font(.headline).foregroundStyle(Theme.ink)
-                                    Text(record.destinationPath)
-                                        .font(.caption2)
-                                        .foregroundStyle(Theme.muted)
-                                        .lineLimit(1)
-                                }
-                                Spacer()
-                                Text(ByteCount.string(record.bytesMoved))
-                                    .foregroundStyle(Theme.muted)
-                                    .monospacedDigit()
-                                Button("Restore") {
-                                    Task { await app.restoreApp(record) }
-                                }
-                                .disabled(app.isWorking || !record.isVolumeMounted)
-                            }
-                            .padding(12)
-                            .background(Theme.chip, in: RoundedRectangle(cornerRadius: 12))
-                        }
+    private var remappedSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("On portable SSD")
+                .font(.headline)
+                .foregroundStyle(Theme.ink)
+                .padding(.top, 12)
+            ForEach(app.appRemaps) { record in
+                HStack {
+                    Image(systemName: "link.circle.fill")
+                        .foregroundStyle(Theme.accent)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(record.appName).font(.headline).foregroundStyle(Theme.ink)
+                        Text(record.destinationPath)
+                            .font(.caption2)
+                            .foregroundStyle(Theme.muted)
+                            .lineLimit(1)
                     }
+                    Spacer()
+                    Text(ByteCount.string(record.bytesMoved))
+                        .foregroundStyle(Theme.muted)
+                        .monospacedDigit()
+                    Button("Restore") {
+                        Task { await app.restoreApp(record) }
+                    }
+                    .disabled(app.isWorking || !record.isVolumeMounted)
                 }
+                .padding(12)
+                .background(Theme.chip, in: RoundedRectangle(cornerRadius: 12))
             }
         }
     }
@@ -185,6 +192,7 @@ struct AppsView: View {
                     set: { _ in app.toggleApp(item) }
                 ))
                 .labelsHidden()
+                .toggleStyle(.checkbox)
                 .disabled(app.isWorking)
             } else {
                 Image(systemName: item.isAppleOrSystem ? "lock.fill" : "link")
@@ -192,16 +200,15 @@ struct AppsView: View {
                     .frame(width: 20)
             }
 
-            Image(nsImage: item.icon)
-                .resizable()
+            AppIconView(path: item.path)
                 .frame(width: 36, height: 36)
-                .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 8) {
                     Text(item.name)
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
+                        .lineLimit(1)
                     if item.isAppleOrSystem {
                         Text("Apple / System")
                             .font(.caption2.weight(.bold))
@@ -224,14 +231,28 @@ struct AppsView: View {
                     .foregroundStyle(Theme.muted)
                     .lineLimit(1)
             }
-            Spacer()
+            Spacer(minLength: 8)
             Text(item.sizeLabel)
                 .monospacedDigit()
                 .foregroundStyle(Theme.ink)
         }
         .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.cardBackground(radius: 12))
         .opacity(item.isAppleOrSystem ? 0.72 : 1)
+    }
+}
+
+/// Loads workspace icons without blowing up LazyVStack layout.
+private struct AppIconView: View {
+    let path: String
+
+    var body: some View {
+        Image(nsImage: NSWorkspace.shared.icon(forFile: path))
+            .resizable()
+            .interpolation(.high)
+            .aspectRatio(contentMode: .fit)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }
 

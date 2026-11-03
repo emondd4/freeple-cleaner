@@ -5,18 +5,18 @@
 <h1 align="center">Freeple Cleaner</h1>
 
 <p align="center">
-  <strong>Free system cleaner for macOS & Windows — reclaim space, remap data, move third-party apps to a portable SSD.</strong>
+  <strong>Free system cleaner for macOS &amp; Windows — reclaim space, remap data, move third-party apps to a portable SSD.</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.0/FreepleCleaner-1.1.0.dmg"><img src="https://img.shields.io/badge/macOS-DMG-0D8C85?style=for-the-badge" alt="macOS DMG" /></a>
-  <a href="windows/README.md"><img src="https://img.shields.io/badge/Windows-Python-EB732E?style=for-the-badge" alt="Windows" /></a>
+  <a href="https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.1/FreepleCleaner-1.1.1.dmg"><img src="https://img.shields.io/badge/macOS-DMG-0D8C85?style=for-the-badge" alt="macOS DMG" /></a>
+  <a href="https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.1/FreepleCleaner-Windows.exe"><img src="https://img.shields.io/badge/Windows-EXE-EB732E?style=for-the-badge" alt="Windows EXE" /></a>
   <a href="#license"><img src="https://img.shields.io/badge/license-MIT-1F6BB8?style=for-the-badge" alt="MIT" /></a>
 </p>
 
 <p align="center">
-  <a href="#install-macos">Install macOS</a> ·
-  <a href="#install-windows">Install Windows</a> ·
+  <a href="#install-macos">macOS</a> ·
+  <a href="#install-windows">Windows</a> ·
   <a href="#features">Features</a> ·
   <a href="#interface">Interface</a> ·
   <a href="#move-apps">Move Apps</a> ·
@@ -39,24 +39,34 @@ System Data and large third-party apps quietly eat internal SSD space. Paid clea
 
 ## Install (macOS)
 
-1. Download **[FreepleCleaner-1.1.0.dmg](https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.0/FreepleCleaner-1.1.0.dmg)**  
-   (or see all builds on **[Releases](https://github.com/emondd4/freeple-cleaner/releases)**)
-2. Open the DMG → drag **Freeple Cleaner** into **Applications**
+1. Download **[FreepleCleaner-1.1.1.dmg](https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.1/FreepleCleaner-1.1.1.dmg)**  
+2. Open the DMG → drag **Freeple Cleaner** into **Applications**  
 3. Launch from Applications  
 
 > If Gatekeeper blocks the app: **System Settings → Privacy & Security → Open Anyway**.  
 > For best remapping results, grant **Full Disk Access**.
 
+### Build from source
+
 ```bash
 git clone https://github.com/emondd4/freeple-cleaner.git
 cd freeple-cleaner
-open MacCleaner.xcodeproj   # Run in Xcode
-# or: ./scripts/make-dmg.sh
+open MacCleaner.xcodeproj        # Run (⌘R)
+# or package:
+./scripts/make-dmg.sh            # → dist/FreepleCleaner-1.1.1.dmg
 ```
 
 ---
 
 ## Install (Windows)
+
+### Option A — EXE (recommended)
+
+1. Download **[FreepleCleaner-Windows.exe](https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.1/FreepleCleaner-Windows.exe)**  
+2. Run the EXE (no install required)  
+3. If SmartScreen warns: **More info → Run anyway**
+
+### Option B — Run with Python
 
 Requires **Windows 10/11** and **Python 3.10+** (stdlib only).
 
@@ -67,7 +77,13 @@ python -m freeple_cleaner
 
 Or double-click `windows\run_freeple.bat`.
 
-See [windows/README.md](windows/README.md) for details.
+### Build the EXE yourself (on Windows)
+
+```bat
+cd windows
+build_exe.bat
+:: → ..\dist\FreepleCleaner-Windows.exe
+```
 
 <p align="center">
   <img src="docs/screenshots/06-windows.png" alt="Freeple Cleaner Windows" width="900" />
@@ -85,12 +101,13 @@ See [windows/README.md](windows/README.md) for details.
 | **Move third-party apps to SSD** | ✅ | ✅ |
 | Keep Apple / Microsoft / system apps on device | ✅ | ✅ |
 | Restore apps & folders later | ✅ | ✅ |
+| Native DMG / portable EXE | ✅ | ✅ |
 
-### Move Apps (new)
+### Move Apps
 
 - Lists installed applications  
 - **Locks** Apple/system (Mac) or Microsoft/Windows (PC) apps — they never move  
-- Moves selected third-party apps to `…/MacCleanerData/Apps` or `…/FreepleCleanerData/Apps`  
+- Moves selected third-party apps to `MacCleanerData/Apps` or `FreepleCleanerData/Apps`  
 - Leaves a **symlink** (macOS) or **directory junction** (Windows) so Launchpad / Start Menu still resolve  
 - **Restore** brings an app back to the internal disk  
 
@@ -110,7 +127,7 @@ Storage snapshot, reclaimable totals, apps already on SSD, and quick actions.
 
 ### Clean
 
-Pick categories (caches, Xcode data, package managers, Trash, and more) and free space in one pass.
+Pick categories and free space in one pass.
 
 <p align="center">
   <img src="docs/screenshots/02-clean.png" alt="Clean" width="900" />
@@ -118,7 +135,7 @@ Pick categories (caches, Xcode data, package managers, Trash, and more) and free
 
 ### Remap Data
 
-Move bulky folders (DerivedData, simulators, caches, …) onto the SSD with links left behind.
+Move bulky folders onto the SSD with links left behind.
 
 <p align="center">
   <img src="docs/screenshots/03-remap.png" alt="Remap Data" width="900" />
@@ -173,22 +190,22 @@ Use at your own risk — review selections before cleaning or moving.
 ```text
 freeple-cleaner/
 ├── MacCleaner/                 # SwiftUI macOS app
-│   ├── Models/
-│   ├── Services/               # scan, clean, remap, app mover
-│   └── Views/                  # Overview, Clean, Remap, Move Apps, Settings
-├── windows/                    # Windows companion (Python)
-│   ├── freeple_cleaner/
+├── windows/                    # Windows companion
+│   ├── freeple_cleaner/        # Python app
+│   ├── freeple_cleaner.spec    # PyInstaller
+│   ├── build_exe.bat
 │   └── run_freeple.bat
 ├── docs/screenshots/
-├── dist/                       # macOS DMG builds
-└── scripts/make-dmg.sh
+├── dist/                       # DMG + EXE outputs
+├── scripts/make-dmg.sh
+└── .github/workflows/build-windows.yml
 ```
 
 ---
 
 ## Version
 
-**1.1.0** — Move Apps for third-party software, refreshed UI colors, Windows companion.
+**1.1.1** — Move Apps UI layout fix, refreshed screenshots, macOS DMG + Windows EXE packaging.
 
 ---
 
