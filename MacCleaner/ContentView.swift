@@ -25,6 +25,8 @@ struct ContentView: View {
                         CategoryListView()
                     case .remap:
                         RemapView()
+                    case .apps:
+                        AppsView()
                     case .settings:
                         SettingsView()
                     }

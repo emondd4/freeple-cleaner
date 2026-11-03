@@ -5,21 +5,21 @@
 <h1 align="center">Freeple Cleaner</h1>
 
 <p align="center">
-  <strong>Free macOS utility to reclaim system data — or remap bulky folders onto a portable SSD.</strong>
+  <strong>Free system cleaner for macOS & Windows — reclaim space, remap data, move third-party apps to a portable SSD.</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/emondd4/freeple-cleaner/releases"><img src="https://img.shields.io/badge/download-DMG-0B7A5C?style=for-the-badge" alt="Download DMG" /></a>
-  <a href="#install"><img src="https://img.shields.io/badge/platform-macOS%2014%2B-555555?style=for-the-badge" alt="macOS 14+" /></a>
-  <a href="#license"><img src="https://img.shields.io/badge/license-MIT-2F6FED?style=for-the-badge" alt="MIT" /></a>
+  <a href="https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.0/FreepleCleaner-1.1.0.dmg"><img src="https://img.shields.io/badge/macOS-DMG-0D8C85?style=for-the-badge" alt="macOS DMG" /></a>
+  <a href="windows/README.md"><img src="https://img.shields.io/badge/Windows-Python-EB732E?style=for-the-badge" alt="Windows" /></a>
+  <a href="#license"><img src="https://img.shields.io/badge/license-MIT-1F6BB8?style=for-the-badge" alt="MIT" /></a>
 </p>
 
 <p align="center">
-  <a href="#install">Install</a> ·
+  <a href="#install-macos">Install macOS</a> ·
+  <a href="#install-windows">Install Windows</a> ·
   <a href="#features">Features</a> ·
   <a href="#interface">Interface</a> ·
-  <a href="#remap-to-ssd">Remap to SSD</a> ·
-  <a href="#build-from-source">Build</a> ·
+  <a href="#move-apps">Move Apps</a> ·
   <a href="#safety">Safety</a>
 </p>
 
@@ -27,62 +27,74 @@
 
 ## Why Freeple Cleaner?
 
-macOS “System Data” can quietly eat tens of gigabytes — Xcode DerivedData, simulators, local iOS backups, caches, and more. Commercial cleaners lock the useful bits behind a paywall.
+System Data and large third-party apps quietly eat internal SSD space. Paid cleaners lock the useful tools.
 
-**Freeple Cleaner** is free and open source. It helps you:
+**Freeple Cleaner** is free and open source on **macOS** and **Windows**:
 
-1. **See** what is reclaimable on your Mac  
-2. **Clean** safe user-level categories with one click  
-3. **Remap** large folders to a portable SSD with symlinks so apps keep working while your internal drive breathes again  
+1. **Clean** reclaimable caches, logs, and temp data  
+2. **Remap** bulky folders onto a portable drive (symlinks / junctions)  
+3. **Move Apps** — park **third-party** apps on the portable SSD while **Apple / Microsoft / system apps stay on the device**
 
 ---
 
-## Install
+## Install (macOS)
 
-### Option A — Download the DMG (recommended)
+1. Download **[FreepleCleaner-1.1.0.dmg](https://github.com/emondd4/freeple-cleaner/releases/download/v1.1.0/FreepleCleaner-1.1.0.dmg)**  
+   (or see all builds on **[Releases](https://github.com/emondd4/freeple-cleaner/releases)**)
+2. Open the DMG → drag **Freeple Cleaner** into **Applications**
+3. Launch from Applications  
 
-1. Download **[FreepleCleaner-1.0.0.dmg](https://github.com/emondd4/freeple-cleaner/releases/download/v1.0.0/FreepleCleaner-1.0.0.dmg)**  
-   (or browse all builds on **[Releases](https://github.com/emondd4/freeple-cleaner/releases)**)
-2. Open the DMG  
-3. Drag **Freeple Cleaner** into **Applications**  
-4. Launch it from Applications  
+> If Gatekeeper blocks the app: **System Settings → Privacy & Security → Open Anyway**.  
+> For best remapping results, grant **Full Disk Access**.
 
-> **First launch on macOS:** if Gatekeeper blocks the app (*“cannot be opened because it is from an unidentified developer”*), go to  
-> **System Settings → Privacy & Security → Open Anyway**.
+```bash
+git clone https://github.com/emondd4/freeple-cleaner.git
+cd freeple-cleaner
+open MacCleaner.xcodeproj   # Run in Xcode
+# or: ./scripts/make-dmg.sh
+```
 
-### Option B — Build from source
+---
 
-See [Build from source](#build-from-source).
+## Install (Windows)
+
+Requires **Windows 10/11** and **Python 3.10+** (stdlib only).
+
+```bat
+cd windows
+python -m freeple_cleaner
+```
+
+Or double-click `windows\run_freeple.bat`.
+
+See [windows/README.md](windows/README.md) for details.
+
+<p align="center">
+  <img src="docs/screenshots/06-windows.png" alt="Freeple Cleaner Windows" width="900" />
+</p>
 
 ---
 
 ## Features
 
-| Feature | What it does |
-| --- | --- |
-| **Smart scan** | Measures reclaimable categories: caches, logs, Xcode data, simulators, backups, package-manager caches, Trash, and more |
-| **Selective clean** | Delete only what you select — remapped folders are skipped automatically |
-| **Remap to SSD** | Move bulky folders to your portable drive and leave a symlink at the original path |
-| **Restore** | Move remapped data back to the internal disk when you want |
-| **Live volumes** | Detects connected portable drives and shows free space |
-| **Safety rails** | Never touches `/System`, `/Library` roots, or other protected paths |
+| Feature | macOS | Windows |
+| --- | :---: | :---: |
+| Scan reclaimable system / user data | ✅ | ✅ |
+| Selective clean with safety rails | ✅ | ✅ |
+| Remap bulky folders to portable SSD | ✅ symlinks | ✅ junctions |
+| **Move third-party apps to SSD** | ✅ | ✅ |
+| Keep Apple / Microsoft / system apps on device | ✅ | ✅ |
+| Restore apps & folders later | ✅ | ✅ |
 
-### Categories you can clean
+### Move Apps (new)
 
-- User Caches & Logs  
-- Temporary files  
-- Xcode DerivedData / Archives / iOS Device Support  
-- Core Simulator  
-- Local iOS device backups  
-- Homebrew / npm / pip / Cargo caches  
-- Trash & Mail downloads  
+- Lists installed applications  
+- **Locks** Apple/system (Mac) or Microsoft/Windows (PC) apps — they never move  
+- Moves selected third-party apps to `…/MacCleanerData/Apps` or `…/FreepleCleanerData/Apps`  
+- Leaves a **symlink** (macOS) or **directory junction** (Windows) so Launchpad / Start Menu still resolve  
+- **Restore** brings an app back to the internal disk  
 
-### Categories you can remap
-
-- User Caches *(per-subfolder; privacy-protected Apple folders may be skipped)*  
-- Xcode DerivedData / Archives / Device Support  
-- Core Simulator  
-- iOS backups  
+Keep the portable drive plugged in while using remapped apps.
 
 ---
 
@@ -90,109 +102,69 @@ See [Build from source](#build-from-source).
 
 ### Overview
 
-Storage snapshot, reclaimable totals, active remaps, and shortcuts into Clean or Remap.
+Storage snapshot, reclaimable totals, apps already on SSD, and quick actions.
 
 <p align="center">
-  <img src="docs/screenshots/01-overview.png" alt="Overview screen" width="900" />
+  <img src="docs/screenshots/01-overview.png" alt="Overview" width="900" />
 </p>
 
 ### Clean
 
-Review each category, select what to remove, and free space in one pass.
+Pick categories (caches, Xcode data, package managers, Trash, and more) and free space in one pass.
 
 <p align="center">
-  <img src="docs/screenshots/02-clean.png" alt="Clean screen" width="900" />
+  <img src="docs/screenshots/02-clean.png" alt="Clean" width="900" />
 </p>
 
-### Remap to SSD
+### Remap Data
 
-Pick a portable volume, move heavy folders onto it, and restore them later if needed.
+Move bulky folders (DerivedData, simulators, caches, …) onto the SSD with links left behind.
 
 <p align="center">
-  <img src="docs/screenshots/03-remap.png" alt="Remap to SSD screen" width="900" />
+  <img src="docs/screenshots/03-remap.png" alt="Remap Data" width="900" />
+</p>
+
+### Move Apps
+
+Third-party apps are selectable. Apple / system apps stay locked on the Mac.
+
+<p align="center">
+  <img src="docs/screenshots/04-apps.png" alt="Move Apps" width="900" />
 </p>
 
 ### Settings
 
-Safety notes, Full Disk Access shortcut, and remap database location.
+Safety notes, Full Disk Access, and remap database paths.
 
 <p align="center">
-  <img src="docs/screenshots/04-settings.png" alt="Settings screen" width="900" />
+  <img src="docs/screenshots/05-settings.png" alt="Settings" width="900" />
 </p>
 
 ---
 
-## Remap to SSD
-
-Remapping is ideal when you want to **keep** large developer data but offload it from Macintosh HD.
-
-```text
-~/Library/Developer/CoreSimulator
-        │
-        ▼  move + symlink
-/Volumes/YourSSD/MacCleanerData/coreSimulator
-```
-
-Apps still look in the original path; the symlink points at your SSD.
-
-### Tips
-
-1. Plug in the SSD and select it under **Remap to SSD**  
-2. Quit Xcode / Simulators before remapping those folders  
-3. Keep the SSD connected while those tools run  
-4. Use **Restore** before long trips without the drive  
-5. For more User Caches coverage, grant **Full Disk Access** to Freeple Cleaner  
-
-Remap state is saved at:
-
-```text
-~/Library/Application Support/MacCleaner/remaps.json
-```
-
----
-
-## Keyboard shortcuts
+## Keyboard shortcuts (macOS)
 
 | Shortcut | Action |
 | --- | --- |
 | `⌘1` | Overview |
 | `⌘2` | Clean |
-| `⌘3` | Remap to SSD |
-| `⌘4` | Settings |
+| `⌘3` | Remap Data |
+| `⌘4` | Move Apps |
+| `⌘5` | Settings |
 | `⌘R` | Scan now |
 | `⌘K` | Clean selected |
 
 ---
 
-## Build from source
-
-**Requirements:** macOS 14+, Xcode 15+
-
-```bash
-git clone https://github.com/emondd4/freeple-cleaner.git
-cd freeple-cleaner
-open MacCleaner.xcodeproj
-```
-
-In Xcode: select the **MacCleaner** scheme → **Product → Run** (`⌘R`).
-
-### Release + DMG
-
-```bash
-./scripts/make-dmg.sh
-# → dist/FreepleCleaner-1.0.0.dmg
-```
-
----
-
 ## Safety
 
-- Cleans **user-level** paths only (home folder + Homebrew cache)  
-- Does **not** delete system frameworks or OS components  
-- Cleaning is permanent (not a soft “move to Trash”, except when emptying Trash itself)  
-- Remaps use move + symlink; unplugging the SSD can break remapped apps until you reconnect or restore  
+- Cleans **user-level** data only — not OS frameworks  
+- **Apple / Microsoft / system apps are never moved**  
+- Cleaning is permanent (except emptying Trash / Recycle Bin itself)  
+- Remapped apps & folders need the portable drive connected  
+- Quit apps before moving them for best results  
 
-Use Freeple Cleaner at your own risk. Review selections before cleaning.
+Use at your own risk — review selections before cleaning or moving.
 
 ---
 
@@ -200,27 +172,23 @@ Use Freeple Cleaner at your own risk. Review selections before cleaning.
 
 ```text
 freeple-cleaner/
-├── MacCleaner/                 # SwiftUI app sources
+├── MacCleaner/                 # SwiftUI macOS app
 │   ├── Models/
-│   ├── Services/               # scan, clean, remap, volumes
-│   ├── Views/
-│   └── Utilities/
-├── docs/screenshots/           # README screenshots
-├── dist/FreepleCleaner-1.0.0.dmg
-├── scripts/make-dmg.sh
-└── MacCleaner.xcodeproj
+│   ├── Services/               # scan, clean, remap, app mover
+│   └── Views/                  # Overview, Clean, Remap, Move Apps, Settings
+├── windows/                    # Windows companion (Python)
+│   ├── freeple_cleaner/
+│   └── run_freeple.bat
+├── docs/screenshots/
+├── dist/                       # macOS DMG builds
+└── scripts/make-dmg.sh
 ```
 
 ---
 
-## Roadmap
+## Version
 
-- [ ] Notarized Developer ID builds  
-- [ ] Docker / Android SDK remap presets  
-- [ ] Scheduled scans  
-- [ ] Menu-bar quick clean  
-
-PRs welcome.
+**1.1.0** — Move Apps for third-party software, refreshed UI colors, Windows companion.
 
 ---
 
@@ -231,5 +199,5 @@ MIT © Freeple Cleaner contributors
 ---
 
 <p align="center">
-  Made for Macs that need room to breathe — without paying for a cleaner.
+  Made for machines that need room to breathe — without paying for a cleaner.
 </p>

@@ -25,6 +25,9 @@
 		9ABC5C09336E45B489DAC0F1 /* PathSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9093937E377426784E99364 /* PathSafety.swift */; };
 		A1B2C3D4E5F6478901234567 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F678901234567890 /* Theme.swift */; };
 		87BC7344BEE245B3B1763B6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADCFF51ED3DC44C7A6AA415A /* Assets.xcassets */; };
+		1095104319E447A59C018C34 /* InstalledApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8359580C91094CA58399D29D /* InstalledApp.swift */; };
+		89A878DEADDC4BCD8803BF99 /* AppMoverService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AE24AC85B840B8942CA95D /* AppMoverService.swift */; };
+		30812FAB865140A5A5DD1536 /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FE3B5E7644E7B25B06D2 /* AppsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		B2C3D4E5F678901234567890 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		ADCFF51ED3DC44C7A6AA415A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E6D4AC8A43F44DCBA4E84ED /* MacCleaner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacCleaner.entitlements; sourceTree = "<group>"; };
+		8359580C91094CA58399D29D /* InstalledApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledApp.swift; sourceTree = "<group>"; };
+		13AE24AC85B840B8942CA95D /* AppMoverService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMoverService.swift; sourceTree = "<group>"; };
+		AA14FE3B5E7644E7B25B06D2 /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,7 @@
 		B17FC9FED9BA41A0A7939B5A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8359580C91094CA58399D29D /* InstalledApp.swift */,
 				D7BF9CD8FA314F499D62351E /* CleanCategory.swift */,
 				81039FCAABD34026AED6BAB3 /* DiskVolume.swift */,
 				6794937F1445434F8489F44A /* RemapRecord.swift */,
@@ -107,6 +114,7 @@
 		AACC004897E941238AA7F0DC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				13AE24AC85B840B8942CA95D /* AppMoverService.swift */,
 				5E9E437ED5F44FCC8E990564 /* DiskScanner.swift */,
 				1BF5069152E84EF7A8EBD3DA /* CleanerService.swift */,
 				634DF9E3C17A460F908F402B /* RemapService.swift */,
@@ -118,6 +126,7 @@
 		21F8F03064C9445DAED06674 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA14FE3B5E7644E7B25B06D2 /* AppsView.swift */,
 				AE0EC52B6ABD4EC0ACC89C65 /* SidebarView.swift */,
 				903D9E179E444DEEAE399E51 /* CategoryListView.swift */,
 				3C449BCB0F7E48D69A6CF5CB /* RemapView.swift */,
@@ -219,6 +228,9 @@
 				FD697BA85575426EB6A3B3C2 /* ByteCount.swift in Sources */,
 				9ABC5C09336E45B489DAC0F1 /* PathSafety.swift in Sources */,
 				A1B2C3D4E5F6478901234567 /* Theme.swift in Sources */,
+				30812FAB865140A5A5DD1536 /* AppsView.swift in Sources */,
+				89A878DEADDC4BCD8803BF99 /* AppMoverService.swift in Sources */,
+				1095104319E447A59C018C34 /* InstalledApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

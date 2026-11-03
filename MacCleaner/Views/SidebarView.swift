@@ -13,7 +13,7 @@ struct SidebarView: View {
                     Text("Freeple Cleaner")
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
                         .foregroundStyle(Theme.ink)
-                    Text("Free Mac system data tools")
+                    Text("Clean · Remap · Move apps")
                         .font(.caption)
                         .foregroundStyle(Theme.muted)
                 }

@@ -9,7 +9,7 @@ struct MacCleanerApp: App {
             ContentView()
                 .environmentObject(appState)
                 .preferredColorScheme(.light)
-                .frame(minWidth: 980, minHeight: 640)
+                .frame(minWidth: 1040, minHeight: 680)
         }
         .windowStyle(.automatic)
         .commands {
@@ -19,10 +19,12 @@ struct MacCleanerApp: App {
                     .keyboardShortcut("1", modifiers: [.command])
                 Button("Clean") { appState.section = .clean }
                     .keyboardShortcut("2", modifiers: [.command])
-                Button("Remap to SSD") { appState.section = .remap }
+                Button("Remap Data") { appState.section = .remap }
                     .keyboardShortcut("3", modifiers: [.command])
-                Button("Settings") { appState.section = .settings }
+                Button("Move Apps") { appState.section = .apps }
                     .keyboardShortcut("4", modifiers: [.command])
+                Button("Settings") { appState.section = .settings }
+                    .keyboardShortcut("5", modifiers: [.command])
             }
             CommandMenu("Clean") {
                 Button("Scan Now") {
@@ -43,7 +45,7 @@ struct MacCleanerApp: App {
         Settings {
             SettingsView()
                 .environmentObject(appState)
-                .frame(width: 420, height: 280)
+                .frame(width: 440, height: 320)
         }
     }
 }
@@ -53,6 +55,8 @@ final class AppState: ObservableObject {
     @Published var section: AppSection = .dashboard
     @Published var categories: [CategoryScan] = []
     @Published var remaps: [RemapRecord] = []
+    @Published var installedApps: [InstalledApp] = []
+    @Published var appRemaps: [AppRemapRecord] = []
     @Published var isScanning = false
     @Published var isWorking = false
     @Published var statusMessage: String?
@@ -67,6 +71,7 @@ final class AppState: ObservableObject {
     private let scanner = DiskScanner()
     private let cleaner = CleanerService()
     private let remapper = RemapService()
+    private let appMover = AppMoverService()
 
     var selectedCategories: [CategoryScan] {
         categories.filter(\.selected)
@@ -92,12 +97,33 @@ final class AppState: ObservableObject {
         categories.filter { $0.kind.canRemap && $0.exists && !$0.isRemapped }
     }
 
+    var selectedMovableApps: [InstalledApp] {
+        installedApps.filter { $0.selected && !$0.isAppleOrSystem && !$0.isRemapped }
+    }
+
+    var selectedAppsBytes: Int64 {
+        selectedMovableApps.reduce(0) { $0 + $1.byteSize }
+    }
+
+    var canMoveApps: Bool {
+        !selectedMovableApps.isEmpty && selectedVolume != nil && !isWorking && !isScanning
+    }
+
+    var thirdPartyAppCount: Int {
+        installedApps.filter { !$0.isAppleOrSystem }.count
+    }
+
+    var appsOnSSDCount: Int {
+        appRemaps.count
+    }
+
     init() {
         Task { await initialLoad() }
     }
 
     private func initialLoad() async {
         await refreshRemaps()
+        await refreshAppRemaps()
         await scan()
         if selectedVolumeID == nil {
             selectedVolumeID = volumes.portableVolumes.first?.id
@@ -107,10 +133,8 @@ final class AppState: ObservableObject {
     func scan() async {
         isScanning = true
         lastError = nil
-        statusMessage = "Scanning system data…"
-        defer {
-            isScanning = false
-        }
+        statusMessage = "Scanning system data & apps…"
+        defer { isScanning = false }
 
         let remapped = await remapper.remappedCategoryIDs()
         let stats = await scanner.bootVolumeStats()
@@ -125,12 +149,27 @@ final class AppState: ObservableObject {
             }
         }
         categories = scanned
-        statusMessage = "Scan complete — \(ByteCount.string(reclaimableBytes)) reclaimable"
+
+        let prevApps = Dictionary(uniqueKeysWithValues: installedApps.map { ($0.id, $0.selected) })
+        var apps = await appMover.scanInstalledApps()
+        for i in apps.indices {
+            if let prev = prevApps[apps[i].id], !apps[i].isAppleOrSystem, !apps[i].isRemapped {
+                apps[i].selected = prev
+            }
+        }
+        installedApps = apps
+
+        statusMessage = "Scan complete — \(ByteCount.string(reclaimableBytes)) reclaimable · \(thirdPartyAppCount) third-party apps"
     }
 
     func refreshRemaps() async {
         await remapper.refreshStore()
         remaps = await remapper.records()
+    }
+
+    func refreshAppRemaps() async {
+        await appMover.refreshStore()
+        appRemaps = await appMover.records()
     }
 
     func toggle(_ kind: CategoryKind) {
@@ -142,6 +181,20 @@ final class AppState: ObservableObject {
         for i in categories.indices {
             if categories[i].exists && categories[i].byteSize > 0 && categories[i].kind.canClean {
                 categories[i].selected = on
+            }
+        }
+    }
+
+    func toggleApp(_ app: InstalledApp) {
+        guard let idx = installedApps.firstIndex(where: { $0.id == app.id }) else { return }
+        guard !installedApps[idx].isAppleOrSystem, !installedApps[idx].isRemapped else { return }
+        installedApps[idx].selected.toggle()
+    }
+
+    func selectMovableApps(_ on: Bool) {
+        for i in installedApps.indices {
+            if !installedApps[i].isAppleOrSystem && !installedApps[i].isRemapped {
+                installedApps[i].selected = on
             }
         }
     }
@@ -175,7 +228,7 @@ final class AppState: ObservableObject {
 
     func remap(_ kind: CategoryKind) async {
         guard let volume = selectedVolume else {
-            lastError = "Plug in a portable SSD and select it in Remap."
+            lastError = "Plug in a portable SSD and select it."
             return
         }
         guard let category = categories.first(where: { $0.kind == kind }) else { return }
@@ -216,6 +269,53 @@ final class AppState: ObservableObject {
         } catch {
             lastError = error.localizedDescription
             statusMessage = "Unmap failed"
+        }
+    }
+
+    func moveSelectedApps() async {
+        guard let volume = selectedVolume else {
+            lastError = "Select a portable SSD first."
+            return
+        }
+        let apps = selectedMovableApps
+        guard !apps.isEmpty else { return }
+
+        isWorking = true
+        statusMessage = "Moving \(apps.count) app(s) to \(volume.name)…"
+        lastError = nil
+        defer { isWorking = false }
+
+        do {
+            let result = try await appMover.moveApps(apps, to: volume)
+            await refreshAppRemaps()
+            if result.warnings.isEmpty {
+                statusMessage = "Moved \(result.moved) app(s) to \(volume.name)"
+                lastError = nil
+            } else {
+                statusMessage = "Moved \(result.moved) app(s) with notes"
+                lastError = result.warnings.joined(separator: "\n")
+            }
+            await scan()
+        } catch {
+            lastError = error.localizedDescription
+            statusMessage = "App move failed"
+        }
+    }
+
+    func restoreApp(_ record: AppRemapRecord) async {
+        isWorking = true
+        statusMessage = "Restoring \(record.appName)…"
+        lastError = nil
+        defer { isWorking = false }
+
+        do {
+            try await appMover.restore(record)
+            await refreshAppRemaps()
+            statusMessage = "\(record.appName) restored to this Mac"
+            await scan()
+        } catch {
+            lastError = error.localizedDescription
+            statusMessage = "Restore failed"
         }
     }
 }

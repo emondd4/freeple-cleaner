@@ -8,7 +8,7 @@ struct DashboardView: View {
             VStack(alignment: .leading, spacing: 22) {
                 header
 
-                HStack(alignment: .top, spacing: 16) {
+                HStack(alignment: .top, spacing: 14) {
                     metricCard(
                         title: "Macintosh HD free",
                         value: ByteCount.string(app.bootFree),
@@ -24,10 +24,10 @@ struct DashboardView: View {
                         tint: Theme.accentBlue
                     )
                     metricCard(
-                        title: "Active remaps",
-                        value: "\(app.remaps.count)",
-                        detail: app.remaps.isEmpty ? "Nothing on external SSD" : "Linked to portable storage",
-                        tint: Color(red: 0.55, green: 0.42, blue: 0.28)
+                        title: "Apps on SSD",
+                        value: "\(app.appsOnSSDCount)",
+                        detail: "\(app.thirdPartyAppCount) third-party detected",
+                        tint: Theme.accentWarm
                     )
                 }
 
@@ -46,9 +46,19 @@ struct DashboardView: View {
                     .controlSize(.large)
 
                     Button {
+                        app.section = .apps
+                    } label: {
+                        Label("Move apps to SSD", systemImage: "square.grid.2x2.fill")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(Theme.accentWarm)
+                    .controlSize(.large)
+
+                    Button {
                         app.section = .remap
                     } label: {
-                        Label("Remap to portable SSD", systemImage: "externaldrive")
+                        Label("Remap data", systemImage: "externaldrive")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
@@ -73,7 +83,7 @@ struct DashboardView: View {
             Text("Overview")
                 .font(.system(size: 28, weight: .semibold, design: .rounded))
                 .foregroundStyle(Theme.ink)
-            Text("Clear reclaimable system data, or move bulky folders onto a portable SSD with symlinks.")
+            Text("Clean system data, remap bulky folders, or park third-party apps on a portable SSD — Apple apps stay put.")
                 .foregroundStyle(Theme.muted)
                 .fixedSize(horizontal: false, vertical: true)
         }

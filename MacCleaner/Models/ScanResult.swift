@@ -19,6 +19,7 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
     case dashboard
     case clean
     case remap
+    case apps
     case settings
 
     var id: String { rawValue }
@@ -27,7 +28,8 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .dashboard: return "Overview"
         case .clean: return "Clean"
-        case .remap: return "Remap to SSD"
+        case .remap: return "Remap Data"
+        case .apps: return "Move Apps"
         case .settings: return "Settings"
         }
     }
@@ -37,6 +39,7 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         case .dashboard: return "gauge.with.dots.needle.33percent"
         case .clean: return "sparkles"
         case .remap: return "externaldrive.connected.to.line.below"
+        case .apps: return "square.grid.2x2.fill"
         case .settings: return "gearshape"
         }
     }
